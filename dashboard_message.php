@@ -18,7 +18,8 @@ SELECT
 	users.name,
 	messages.id_message,
 	messages.message,
-	messages.post_time
+	messages.post_time,
+	messages.status
 FROM 
 	users
 INNER JOIN
@@ -64,7 +65,23 @@ require_once("func.write_message.php");
 
 #Mensajes del usuario 
 while($msg = $resultado->fetch_assoc()){
+
+	#Comprobar el status
+	if($msg["status"] == 0){
+		$status = "<p class=\"message-status\">Eliminado</p>";
+		$status_class = 'class="deleted"';
+	}
+	else if($msg["status"] == 2){
+		$status = "<p class=\"message-status\">Borrador<p>";
+		$status_class = "class\"draft\"";
+	}
+	else if($msg["status"] == 1){
+		$status = "<p class=\"message-status\">Publicado<p>";
+		$status_class = "class\"draft\"";
+	}
+
 	write_message($msg);
+	
 }
 
 #Cerrar html

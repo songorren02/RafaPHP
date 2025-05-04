@@ -92,6 +92,10 @@ else{
 		$status = "<p class=\"message-status\">Borrador</p>";
 		$status_class = " class=\"draft\"";
 	}
+	else if($msg["status"] == 1){
+		$status = "<p class=\"message-status\">Publicado</p>";
+		$status_class = " class=\"published\"";
+	}
 
 #Mostrar el último mensaje
 	echo <<<EOD
