@@ -18,13 +18,33 @@ function write_message ($message_info)
 EOD;
 	}
 
+	$query= <<<EOD
+	SELECT
+		likes
+	FROM
+		messages
+	WHERE
+		id_user = {$message_info["id_user"]}
+EOD;
+	
+	#Conexion con la db
+	$conn = mysqli_connect("localhost", "admin", "enti", "entihub");
+
+	$resultado = mysqli_query($conn, $query);
+ 
+	$likes = $resultado->fetch_assoc();
+
+
 	#Mostrar el mensaje
 	echo <<<EOD
 <section class="message">
 <h3><a href="profile.php?user={$message_info["username"]}">{$message_info["name"]}</a></h3>
 <p class="message-text">{$message_info["message"]}</p>
 <p class="message-date">{$message_info["post_time"]}</p>
-{$delete_link}
+	{$delete_link}
+<p class"like"><a href="likes.php?id_message={$message_info["id_message"]}">Likes:{$likes["likes"]}</a> </p>	
+
+
 </section>
 EOD;
 }

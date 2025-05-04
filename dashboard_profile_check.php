@@ -20,6 +20,9 @@ if (!isset($_POST["username"]) || !isset($_POST["email"]) || !isset($_POST["name
 
 $username = trim($_POST["username"]);
 
+#Comprobar caracteres html
+$username = htmlespacialchars($username, ENT_QUOTES);
+
 if (strlen($username) <= 2){
     echo "Error 2a: Nombre de usuario muy corto";
     exit();
@@ -47,6 +50,9 @@ $username = $username_tmp;
 
 $name = trim($_POST["name"]);
 
+#Comprobar caracteres html
+$username = htmlespacialchars($username, ENT_QUOTES);
+
 if (strlen($name) <= 2){
     echo "Error 3a: Nombre muy corto";
     exit();
@@ -72,6 +78,10 @@ if ($name_tmp != $name){
 // Remove all illegal characters from email https://www.w3schools.com/Php/filter_validate_email.asp 
 
 $email = trim($_POST["email"]);
+
+
+#Comprobar caracteres html
+$username = htmlespacialchars($username, ENT_QUOTES);
 
 if (strlen($email) > 48){
     echo "Error 4a: Mail muy largo";

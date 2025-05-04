@@ -53,7 +53,7 @@ EOD;
 #Mostrar los usuarios
 while($user = $resultado->fetch_assoc()){
 	echo <<<EOD
-	<li>{$user["username"]}</li>
+	<li><a href="profile.php?user={$user["username"]}">{$user["username"]}</a></li>
 EOD;
 }
 

@@ -20,6 +20,7 @@ CREATE TABLE messages (
 	post_time DATETIME NOT NULL,
 	is_response BOOLEAN DEFAULT FALSE,
 	status INT NOT NULL DEFAULT 1,
+	likes INT NOT NULL DEFAULT 0,
 	id_user INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users(id_user)
 );

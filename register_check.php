@@ -9,6 +9,8 @@ if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["r
 
 $username = trim($_POST["username"]);
 
+
+
 if (strlen($username) <= 2){
     echo "Error 2a: Nombre de usuario muy corto";
     exit();
@@ -24,6 +26,8 @@ if (strlen($username) > 16){
 
 $username_tmp = addslashes($username);
 
+
+
 if ($username_tmp !== $username){
     echo "Error 2c: Nombre con caracteres no váldos";
     exit();
@@ -35,6 +39,7 @@ $username = $username_tmp;
 # Check name
 
 $name = trim($_POST["name"]);
+
 
 if (strlen($name) <= 2){
     echo "Error 3a: Nombre muy corto";
@@ -62,6 +67,8 @@ if ($name_tmp != $name){
 
 $password = trim($_POST["password"]);
 $password_check = trim($_POST["repassword"]);
+
+
 
 if ($password_check !== $password){
     echo "Error 3c: Passwords distintos";
@@ -128,6 +135,7 @@ if($password != $password_check){
 
 $email = trim($_POST["email"]);
 
+#Comprobar longitueds
 if (strlen($email) > 48){
     echo "Error 4a: Mail muy largo";
     exit();

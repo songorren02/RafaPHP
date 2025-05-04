@@ -43,6 +43,8 @@ if(!isset($_POST["message"])){
 #Quitar espacios del inicio
 $msg = trim($_POST["message"]);
 
+$msg = htmlspecialchars($msg, ENT_QUOTES);
+
 #Comprobar longitudes
 if(strlen($msg) <= 0){
 	die("Error 2: Mensaje demasiado corto");

@@ -11,7 +11,7 @@ if (!isset($_POST["username"]) || !isset($_POST["password"])){
 #Eliminar espacios
 $username = trim($_POST["username"]);
 
-#Comprobar logitudes
+#Comprobar logitud
 if (strlen($username) <= 2){
 	echo "Error 2a: Nombre de ususario muy corto";
 	exit();
