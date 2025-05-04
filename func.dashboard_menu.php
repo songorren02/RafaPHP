@@ -9,7 +9,7 @@ function dashboard_menu ()
 		<h2>Navegación del Dashboard</h2>
 		<menu>
 			<li><a href="dashboard_profile.php">Perfil</a></li>
-			<li><a href="dashboard_messages.php">Mensajes</a></li>
+			<li><a href="dashboard_message.php">Mensajes</a></li>
 		</menu>
 	</nav>
 </aside>
