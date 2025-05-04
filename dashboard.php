@@ -87,6 +87,7 @@ else{
 	if ($msg["status"] == 0){
 		$status = "<p class=\"message-status\">Eliminado</p>";
 		$status_class = ' class="deleted"';
+
 	}
 	else if ($msg["status"] == 2){
 		$status = "<p class=\"message-status\">Borrador</p>";
@@ -99,11 +100,12 @@ else{
 
 #Mostrar el último mensaje
 	echo <<<EOD
-<section id="dashboard_last_message"{$status_class}>
 	<h2>Último mensaje</h2>
+<section class="message"{$status_class}>
 	<p class="message-text">{$msg["message"]}</p>
 	<p class="message-date">{$msg["post_time"]}</p>
-	{$status}
+	{$status}		
+
 </section>
 EOD;
 }

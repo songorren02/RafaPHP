@@ -62,16 +62,30 @@ if (isset($_POST["draft"])){
 }
 
 #Cambiar el mensaje
-$query = <<<EOD
+$query= <<<EOD
 UPDATE
 	messages
 SET
-	message='{$message}',
+	message='{$msg}',
 	status={$status}
 WHERE
 	id_message={$id_message}
-	AND user={$session}
+	AND id_user={$session}
 EOD;
 
-echo $query;
+require_once("db_conf.php");
+
+#Conexion db
+$conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
+
+$resultado = mysqli_query($conn, $query);
+
+if(!$resultado){
+	header("Location: dashboard_message.php");
+	exit();
+}
+
+
+header("Location: index.php");
+exit();
 ?>

@@ -70,18 +70,81 @@ while($msg = $resultado->fetch_assoc()){
 	if($msg["status"] == 0){
 		$status = "<p class=\"message-status\">Eliminado</p>";
 		$status_class = 'class="deleted"';
+
+		/* BOTON 1 */
+
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton1= <<<EOD
+<p class="message-delete"><a href="dashboard_message_recover.php?id_message={$msg["id_message"]}">Recuperar</a></p>
+EOD;
+		}
+			
+		/* BOTON 2 */
+	
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton2= <<<EOD
+<p class="message-delete"><a href="dashboard_message_draft.php?id_message={$msg["id_message"]}">Borrador</a></p>
+EOD;
+		}
+		
 	}
 	else if($msg["status"] == 2){
 		$status = "<p class=\"message-status\">Borrador<p>";
 		$status_class = "class\"draft\"";
+		
+		/* BOTON 1 */
+
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton1= <<<EOD
+<p class="message-delete"><a href="dashboard_message_delete.php?id_message={$msg["id_message"]}">Eliminar</a></p>
+EOD;
+		}
+
+		/* BOTON 2 */
+
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton2= <<<EOD
+<p class="message-delete"><a href="dashboard_message_edit.php?id_message={$msg["id_message"]}">Editar</a></p>
+EOD;
+		}
+
 	}
 	else if($msg["status"] == 1){
 		$status = "<p class=\"message-status\">Publicado<p>";
 		$status_class = "class\"draft\"";
+		
+		/* BOTON 1 */
+
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton1= <<<EOD
+<p class="message-delete"><a href="dashboard_message_delete.php?id_message={$msg["id_message"]}">Eliminar</a></p>
+EOD;
+		}
+
+		/* BOTON 2 */
+
+		#Comprobar si el usuario logueado es el mismo que el que borra
+		if($session == $msg["id_user"]){
+			$boton2= <<<EOD
+<p class="message-delete"><a href="dashboard_message_draft.php?id_message={$msg["id_message"]}">Borrador</a></p>
+EOD;
+		}
 	}
 
-	write_message($msg);
-	
+	echo <<<EOD
+<section class="message"{$status_class}>
+	<p class="message-text">{$msg["message"]}</p>
+	<p class="message-date">{$msg["post_time"]}</p>
+	{$status}
+	{$boton1}
+	{$boton2}
+</section>
+EOD;	
 }
 
 #Cerrar html

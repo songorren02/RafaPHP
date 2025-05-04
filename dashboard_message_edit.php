@@ -17,18 +17,16 @@ if (!isset($_GET["id_message"])){
 	exit();
 }
 
-/* TODO: FILTRAR MF */
-
 #Guardar valor númerico (ID) - Comprovación 
 $id_message = intval($_GET["id_message"]);
 
 #Comprobar si el id es posible
 if ($id_message <= 0){
-	header("Location: dashboard_messages.php");
+	header("Location: dashboard_message.php");
 	exit();
 }
 
-#Mostrar el mensaje
+#Obtener el mensaje
 $query = <<<EOD
 SELECT
 	*
@@ -47,7 +45,7 @@ $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 $resultado = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($resultado) == 0){
-	header("Location: dashboard_messages.php");
+	header("Location: dashboard_message.php");
 	exit();
 }
 
@@ -79,7 +77,4 @@ EOD;
 
 #Cerrar HTML
 close_html();
-
-
-
 ?>
