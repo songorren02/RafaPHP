@@ -162,25 +162,30 @@ if (!checkdate($mes, $dia, $any)) {
 
 require_once("db_conf.php");
 
+#Conexion con la db
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
+#Obtener id del user
 $query = <<<EOD
 SELECT id_user
 FROM users
 WHERE username='{$username}'
 EOD;
+
+#Comprobar los resultados
 $resultado = mysqli_query($conn, $query);
 if (mysqli_num_rows($resultado) != 0){
     echo "Error 2d: Usuario existente";
     exit();
 }
 
-
+#Obtener el id
 $query = <<<EOD
 SELECT id_user FROM users
 WHERE email='{$email}'
 EOD;
 
+#Comprobar resultado
 $resultado = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($resultado) != 0){
@@ -188,20 +193,16 @@ if (mysqli_num_rows($resultado) != 0){
     exit();
 }
 
-
-
+#Convertir password en hashMD5
 $password = md5($password);
 
-
+#Registrar el usuario
 $query = <<<EOD
 INSERT INTO users (`name`, username, email, birthdate, `password`)
 VALUES ('{$name}', '{$username}', '{$email}', '{$date}', '{$password}');
 EOD;
 
-// echo $query;
-// Nos connectamos a la base de datos y hacemos la petición
-
-
+#Comprobamos los resultados
 $resultado = mysqli_query($conn, $query);
 
 if (!$resultado){

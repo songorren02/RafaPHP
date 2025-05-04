@@ -1,12 +1,15 @@
 <?php
 require_once("func.check_session.php");
 
+#Comprobar sesion
 $session = check_session();
 
 require_once("template.php");
 
+#Abrir html
 open_html();
 
+#Comprobar cierre de sesion
 if (isset($_COOKIE["logout"]) && $_COOKIE["logout"] != ""){
 	$user_prev = addslashes($_COOKIE["logout"]);
 	setcookie("logout", "");
@@ -15,6 +18,7 @@ if (isset($_COOKIE["logout"]) && $_COOKIE["logout"] != ""){
 EOD;
 }
 
+#Mostrar pantalla inicial
 if ($session) {
 	echo <<<EOD
 <aside id="message_form">
@@ -43,8 +47,10 @@ EOD;
 
 require_once("db_conf.php");
 
+#Conexion con la db
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
+#Obtener mensajes
 $query = <<<EOD
 SELECT
 	users.id_user,
@@ -67,6 +73,7 @@ EOD;
 
 $resultado = mysqli_query($conn, $query);
 
+#Comprobar si hay mensajes
 if (!$resultado) {
 	echo "<p class=\"error_msg\">Error al leer el feed de mensajes</p>";
 	echo <<<EOD
@@ -78,12 +85,12 @@ EOD;
 
 require_once("func.write_message.php");
 
-
+#Escribir los mensajes
 while ($msg = $resultado->fetch_assoc()){
 	write_message($msg);
 }
 
-
+#Cierres del html
 echo <<<EOD
 </section>
 EOD;

@@ -1,6 +1,7 @@
 <?php
 require_once("func.check_session.php");
 
+#Comprobar la sesion
 $session = check_session();
 
 if (!$session){
@@ -10,12 +11,15 @@ if (!$session){
 
 require_once("template.php");
 
+#Abrir html
 open_html("Dashboard");
 
 require_once("func.dashboard_menu.php");
 
+#Mostrar el menu del dashboard
 dashboard_menu();
 
+#Mostrar los datos del usuario de la sesion
 $query = <<<EOD
 SELECT *
 FROM users
@@ -24,6 +28,7 @@ EOD;
 
 require_once("db_conf.php");
 
+#Conexion con la db
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
 $resultado = mysqli_query($conn, $query);
@@ -35,6 +40,7 @@ if (mysqli_num_rows($resultado) == 0){
 
 $user = $resultado->fetch_assoc();
 
+#Info del usuario
 echo <<<EOD
 <section id="user_data">
 	<h2>Datos del usuario</h2>
@@ -48,6 +54,7 @@ echo <<<EOD
 </section>
 EOD;
 
+#Ultimo mensaje del user
 $query = <<<EOD
 SELECT *
 FROM messages
@@ -61,6 +68,7 @@ EOD;
 
 $resultado = mysqli_query($conn, $query);
 
+#Comprobar si hay mensajes
 if (mysqli_num_rows($resultado) == 0){
 	echo <<<EOD
 <section id="dashboard_no_last_message">
@@ -74,6 +82,8 @@ else{
 
 	$status = "";
 	$status_class = "";
+
+	#Comprobar status 0 = eliminado // 2 = borrador
 	if ($msg["status"] == 0){
 		$status = "<p class=\"message-status\">Eliminado</p>";
 		$status_class = ' class="deleted"';
@@ -83,7 +93,7 @@ else{
 		$status_class = " class=\"draft\"";
 	}
 
-
+#Mostrar el último mensaje
 	echo <<<EOD
 <section id="dashboard_last_message"{$status_class}>
 	<h2>Último mensaje</h2>
@@ -94,9 +104,6 @@ else{
 EOD;
 }
 
-
-
-
-
+#Cerrar html
 close_html();
 ?>

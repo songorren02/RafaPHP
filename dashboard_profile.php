@@ -1,6 +1,7 @@
 <?php
 require_once("func.check_session.php");
 
+#Comprobar sesion
 $session = check_session();
 
 if (!$session){
@@ -8,6 +9,7 @@ if (!$session){
 	exit();
 }
 
+#Obtener info del usuario
 $query = <<<EOD
 SELECT *
 FROM users
@@ -16,10 +18,12 @@ EOD;
 
 require_once("db_conf.php");
 
+#Conexion con la db
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
 $resultado = mysqli_query($conn, $query);
 
+#Comprobar resultados
 if (!$resultado) {
 	header("Location: login.php");
 	exit();
@@ -33,16 +37,17 @@ if (mysqli_num_rows($resultado) != 1){
 
 require_once("template.php");
 
+#Abrir html
 open_html("Dashboard: Profile", "dashboard-profile");
-
 
 require_once("func.dashboard_menu.php");
 
+#Mostrar el menu del dashboard
 dashboard_menu();
-
 
 $user = $resultado->fetch_assoc();
 
+#Datos del usuario
 echo <<<EOD
 <form method="POST" action="dashboard_profile_check.php">
 
@@ -64,5 +69,6 @@ echo <<<EOD
 </form>
 EOD;
 
+#Cerrar html
 close_html();
 ?>

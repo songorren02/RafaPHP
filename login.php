@@ -2,9 +2,10 @@
 
 require_once("template.php");
 
-
+#Abrir HTML
 open_html("Login y registro de usuarios", "login-register");
 
+#Formulario de login
 echo <<<EOD
 <form method="POST" action="login_check.php" id="login-form">
 <h2>Login</h2>
@@ -18,6 +19,7 @@ echo <<<EOD
 </form>
 EOD;
 
+#Formulario de registro
 echo <<<EOD
 <form method="POST" action="register_check.php" id="register-form">
 <h2>Registro</h2>
@@ -43,8 +45,7 @@ echo <<<EOD
 </form>
 EOD;
 
-
-
+#Cerrrar HTML
 close_html();
 
 

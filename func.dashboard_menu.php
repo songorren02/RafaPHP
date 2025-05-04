@@ -1,4 +1,6 @@
 <?php
+
+#Mostrar el menu del dashboard
 function dashboard_menu ()
 {
 	echo <<<EOD

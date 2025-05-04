@@ -1,5 +1,6 @@
 <?php
 
+#Mostrar error
 function write_error_message ($message, $error_num="")
 {
 	if ($error_num == ""){

@@ -1,6 +1,7 @@
 <?php
 require_once("func.check_session.php");
 
+#Comprobar sesion
 $session = check_session();
 
 if (!$session){
@@ -9,6 +10,7 @@ if (!$session){
 }
 
 
+#Comprobar si existen los campos
 if (!isset($_POST["username"]) || !isset($_POST["email"]) || !isset($_POST["name"]) || !isset($_POST["date"]) ){
     echo "Error 1: Formulario no enviado";
     exit();
@@ -78,25 +80,23 @@ if (strlen($email) > 48){
 
 $email = addslashes(filter_var($email, FILTER_SANITIZE_EMAIL));
 
-// Validate e-mail
+// Validar email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo "4b Formato mail incorrecto";
     exit();
 }
 
 
-
-
 $date = ($_POST["date"]);
-// Separem l'any, mes i dia
+// Separar por mes, año y dia
 list($any, $mes, $dia) = explode("-", $date);
 
-// Convertim a enters
+// Convertir a enteros
 $any = intval($any);
 $mes = (int) $mes;
 $dia = (int) $dia;
 
-    // Verifiquem la data
+    // Verificar la fecha
 if (!checkdate($mes, $dia, $any)) {
     echo "La data $date no és vàlida.";
     exit();
@@ -105,11 +105,10 @@ if (!checkdate($mes, $dia, $any)) {
 
 require_once("db_conf.php");
 
+#Conexion con la db
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
-
-
-
+#Actualizar campos del user
 $query = <<<EOD
 UPDATE
 	users
@@ -121,9 +120,6 @@ SET
 WHERE
 	id_user={$session};
 EOD;
-
-// echo $query;
-// Nos connectamos a la base de datos y hacemos la petición
 
 
 $resultado = mysqli_query($conn, $query);
