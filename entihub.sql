@@ -27,7 +27,8 @@ CREATE TABLE messages (
 
 CREATE TABLE likes (
 	id_like INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	like_count INT NOT NULL DEFAULT 0,
+	like_count BOOLEAN DEFAULT FALSE,
 	id_user INT UNSIGNED NOT NULL,
-	FOREIGN KEY (id_message) REFERENCES messages(id_message)
+	id_message INT UNSIGNED NOT NULL,
+	UNIQUE (id_user, id_message)
 );
