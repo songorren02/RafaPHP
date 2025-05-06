@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 
@@ -20,7 +21,13 @@ CREATE TABLE messages (
 	post_time DATETIME NOT NULL,
 	is_response BOOLEAN DEFAULT FALSE,
 	status INT NOT NULL DEFAULT 1,
-	likes INT NOT NULL DEFAULT 0,
 	id_user INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users(id_user)
+);
+
+CREATE TABLE likes (
+	id_like INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	like_count INT NOT NULL DEFAULT 0,
+	id_user INT UNSIGNED NOT NULL,
+	FOREIGN KEY (id_message) REFERENCES messages(id_message)
 );
