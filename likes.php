@@ -18,14 +18,12 @@ if($id_message <= 0){
 	die("Error 2: Identificador incorrecto");
 }
 
-#Actualizar el status
+#Insertar el like
 $query = <<<EOD
-UPDATE	
-	messages
-SET
-	likes = likes + 1
-WHERE
-	id_message={$id_message}
+INSERT INTO
+	likes(id_user, id_message, like_count)
+VALUES
+	({$session}, {$id_message}, 1)
 EOD;
 
 require_once("db_conf.php");
