@@ -30,5 +30,4 @@ CREATE TABLE likes (
 	like_count BOOLEAN DEFAULT FALSE,
 	id_user INT UNSIGNED NOT NULL,
 	id_message INT UNSIGNED NOT NULL,
-	UNIQUE (id_user, id_message)
 );

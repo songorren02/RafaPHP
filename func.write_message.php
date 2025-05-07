@@ -20,11 +20,12 @@ EOD;
 
 	$query= <<<EOD
 	SELECT
-		likes
+		COUNT(like_count) as num
 	FROM
-		messages
+		likes
 	WHERE
-		id_user = {$message_info["id_user"]}
+		id_message = {$message_info["id_message"]}
+		AND like_count = true
 EOD;
 	
 	#Conexion con la db
@@ -42,7 +43,8 @@ EOD;
 <p class="message-text">{$message_info["message"]}</p>
 <p class="message-date">{$message_info["post_time"]}</p>
 	{$delete_link}
-<p class"like"><a href="likes.php?id_message={$message_info["id_message"]}">Likes:{$likes["likes"]}</a> </p>	
+<p class"like"><a href="likes.php?id_message={$message_info["id_message"]}">Likes: {$likes["num"]}</a> </p>	
+
 
 
 </section>
