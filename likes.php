@@ -64,7 +64,7 @@ EOD;
 	UPDATE
 		likes
 	SET
-		like_count = true;
+		like_count = true
 	WHERE
 		id_user = {$session}
 		AND id_message = {$id_message}
