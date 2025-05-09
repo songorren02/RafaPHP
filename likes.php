@@ -36,7 +36,13 @@ $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 
 $result = mysqli_query($conn, $query);
 
-if($result = 1){
+
+if($result && mysqli_num_rows($result) > 0){
+	
+	#Convertir result en una array
+$result = $result->fetch_assoc();
+
+if($result['like_count'] == true){
 	#El usuario ya le ha dado like
 	#Cambiar el estado del like
 	$query = <<<EOD
@@ -57,7 +63,7 @@ EOD;
 	if(!$result){
 		die("Error al ejecutar la peticion");
 	}
-}else if($result = 0){
+}else {
 	#Like existe pero lo ha quitado
 
 	$query = <<<EOD
@@ -76,7 +82,8 @@ EOD;
 	if(!$result){
 		die("Error al ejecutar la peticion");
 	}
-}else if(!$result){
+}
+}else{
 	#No le ha dado like
 	
 	#Insertar el like
@@ -84,7 +91,7 @@ EOD;
 	INSERT INTO
 		likes(id_user, id_message, like_count)
 	VALUES
-		({$session}, {$id_message}, 1)
+		({$session}, {$id_message}, true)
 EOD;
 
 	require_once("db_conf.php");
